@@ -10,10 +10,11 @@ The format is based on `Keep a Changelog`_ and this project adheres to `Semantic
 `Unreleased`_
 -------------
 
-0.1.0 - 2018-06-16
+`0.1.0`_ - 2018-06-16
 ---------------------
 Added
 ^^^^^
  - Initial version
 
-.. _Unreleased: https://github.com/jaredlgillespie/rerunme/compare/v0.1.0...HEAD
+.. _Unreleased: https://github.com/JaredLGillespie/rerunme/compare/v0.1.0...HEAD
+.. _0.1.0: https://github.com/JaredLGillespie/rerunme/releases/tag/v0.1.0

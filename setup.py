@@ -9,7 +9,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
     name='rerunme',
     version='0.1.0',
-    description='A library for retrying functions with delays.',
+    description='A library for rerunning erred functions with delays.',
     long_description=long_description,
     url='https://github.com/jaredlgillespie/rerunme',
     author='Jared Gillespie',
