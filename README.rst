@@ -281,10 +281,10 @@ Changelog
 ---------
 All changes and versioning information can be found in the `CHANGELOG`_.
 
-.. _CHANGELOG: CHANGELOG.rst
+.. _CHANGELOG: https://github.com/JaredLGillespie/rerunme/blob/master/CHANGELOG.rst
 
 License
 -------
 Copyright (c) 2018 Jared Gillespie. See `LICENSE`_ for details.
 
-.. _LICENSE: LICENSE.txt
+.. _LICENSE: https://github.com/JaredLGillespie/rerunme/blob/master/LICENSE.txt
