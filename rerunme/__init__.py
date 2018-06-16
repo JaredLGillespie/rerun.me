@@ -31,7 +31,6 @@ This exports:
   - fibonacci is a delay generator for fibonacci delays
 """
 
-from enum import Flag, auto
 from inspect import signature, Parameter
 from functools import wraps
 from time import sleep
@@ -42,11 +41,11 @@ class MaxRetryError(Exception):
     pass
 
 
-class _FunctionSignature(Flag):
+class _FunctionSignature:
     """Flags for parameters accepted by function signature."""
-    NORMAL = auto()
-    ARGS = auto()
-    KWARGS = auto()
+    NORMAL = 1 << 0
+    ARGS = 1 << 1
+    KWARGS = 1 << 2
 
 
 class rerunme:
