@@ -200,7 +200,7 @@ class rerunme:
         return callable(self._on_error) and \
                        (not isinstance(self._on_error, type) or not issubclass(self._on_error, Exception))
 
-    def _get_delay_sequence(self,*args, **kwargs):
+    def _get_delay_sequence(self, *args, **kwargs):
         if callable(self._on_delay):
             return self._call_with_sig(self._on_delay, self._sig_delay, [], *args, **kwargs)
         elif self._is_iterable(self._on_delay):
