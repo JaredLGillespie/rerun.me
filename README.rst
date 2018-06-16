@@ -271,8 +271,8 @@ function variations are shown below.
 
 Contribution
 ------------
-Contributions or suggestions are welcome! Feel free to `open an issue`_ if a bug or enhancement is desired, or even a
-`pull request`_.
+Contributions or suggestions are welcome! Feel free to `open an issue`_ if a bug is found or an enhancement is desired,
+or even a `pull request`_.
 
 .. _open an issue: https://github.com/jaredlgillespie/rerunme/issues
 .. _pull request: https://github.com/jaredlgillespie/rerunme/compare
