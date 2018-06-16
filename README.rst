@@ -1,9 +1,9 @@
 Rerun Me
 ========
 
-A function decorator for retrying in the case of specific raised exceptions and return value criteria with a delay.
+A library for rerunning functions in the case of raised exceptions and specific return values with configurable delays.
 
-.. code-block::python
+.. code-block:: python
 
     @rerunme(on_delay=fibonacci(1000, 3),
              on_error=[ConnectionTimeoutError, DeadlockVictimError],
@@ -184,7 +184,9 @@ it after the delay, the ``retry_after_delay`` parameter can be specified.
 
 .. code-block:: python
 
-    @rerunme(on_delay=[1000], on_return=-1, on_retry=lambda d, r: print('Waited %s seconds for retry #%s' % (d, r)))
+    @rerunme(on_delay=[1000],
+             on_return=-1,
+             on_retry=lambda d, r: print('Waited %s seconds for retry #%s' % (d, r)))
     def func():
         ...
 
@@ -252,14 +254,18 @@ Contribution
 ------------
 Contributions or suggestions are welcome! Feel free to `open an issue`_ if a bug or enhancement is desired, or even a
 `pull request`_.
+
 .. _open an issue: https://github.com/jaredlgillespie/rerunme/issues
 .. _pull request: https://github.com/jaredlgillespie/rerunme/compare
 
 Changelog
 ---------
 All changes and versioning information can be found in the `CHANGELOG`_.
+
 .. _CHANGELOG: CHANGELOG.rst
 
 License
 -------
-Copyright (c) 2018 Jared Gillespie. See LICENSE for details.
+Copyright (c) 2018 Jared Gillespie. See `LICENSE`_ for details.
+
+.. _LICENSE: LICENSE.txt
