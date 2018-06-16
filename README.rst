@@ -1,6 +1,13 @@
 Rerun Me
 ========
 
+.. image:: https://img.shields.io/travis/JaredLGillespie/rerunme.svg   :alt: Travis
+.. image:: https://img.shields.io/coveralls/github/JaredLGillespie/rerunme.svg   :alt: Coveralls github
+.. image:: https://img.shields.io/pypi/v/rerunme.svg   :alt: PyPI
+.. image:: https://img.shields.io/pypi/wheel/rerunme.svg   :alt: PyPI - Wheel
+.. image:: https://img.shields.io/pypi/pyversions/rerunme.svg   :alt: PyPI - Python Version
+.. image:: https://img.shields.io/pypi/l/rerunme.svg   :alt: PyPI - License
+
 A library for rerunning functions in the case of raised exceptions and specific return values with configurable delays.
 
 .. code-block:: python
