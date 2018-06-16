@@ -178,7 +178,7 @@ class rerunme:
         if not sig:
             return func()
         elif sig & (_FunctionSignature.ARGS | _FunctionSignature.KWARGS):
-            return func(*internal_args, *args, **kwargs)
+            return func(*(internal_args + args), **kwargs)
         else:
             return func(*internal_args)
 
@@ -201,7 +201,7 @@ class rerunme:
 
     def _get_delay_sequence(self, *args, **kwargs):
         if callable(self._on_delay):
-            return self._call_with_sig(self._on_delay, self._sig_delay, [], *args, **kwargs)
+            return self._call_with_sig(self._on_delay, self._sig_delay, (), *args, **kwargs)
         elif self._is_iterable(self._on_delay):
             return self._on_delay
         return [self._on_delay]
@@ -225,7 +225,7 @@ class rerunme:
             # Callables are OK, but not if an Exception is given, we have to make sure we don't
             # call `issubclass` with a non-class object
             if self._error_is_callable():
-                return self._call_with_sig(self._on_error, self._sig_error, [error], *args, **kwargs)
+                return self._call_with_sig(self._on_error, self._sig_error, (error,), *args, **kwargs)
             elif self._is_iterable(self._on_error):
                 return isinstance(error, tuple(self._on_error))
             else:
@@ -235,7 +235,7 @@ class rerunme:
     def _should_handle_return(self, value, *args, **kwargs):
         if self._on_return is not None:
             if callable(self._on_return):
-                return self._call_with_sig(self._on_return, self._sig_return, [value], *args, **kwargs)
+                return self._call_with_sig(self._on_return, self._sig_return, (value,), *args, **kwargs)
             elif self._is_iterable(self._on_return):
                 return value in self._on_return
             else:
