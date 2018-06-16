@@ -1,12 +1,24 @@
 Rerun Me
 ========
 
-.. image:: https://img.shields.io/travis/JaredLGillespie/rerunme.svg   :alt: Travis
-.. image:: https://img.shields.io/coveralls/github/JaredLGillespie/rerunme.svg   :alt: Coveralls github
-.. image:: https://img.shields.io/pypi/v/rerunme.svg   :alt: PyPI
-.. image:: https://img.shields.io/pypi/wheel/rerunme.svg   :alt: PyPI - Wheel
-.. image:: https://img.shields.io/pypi/pyversions/rerunme.svg   :alt: PyPI - Python Version
-.. image:: https://img.shields.io/pypi/l/rerunme.svg   :alt: PyPI - License
+.. image:: https://img.shields.io/travis/JaredLGillespie/rerunme.svg
+    :alt: Travis
+    :target: https://travis-ci.org/JaredLGillespie/rerunme
+.. image:: https://img.shields.io/coveralls/github/JaredLGillespie/rerunme.svg
+    :alt: Coveralls github
+    :target: https://coveralls.io/github/JaredLGillespie/rerunme
+.. image:: https://img.shields.io/pypi/v/rerunme.svg
+    :alt: PyPI
+    :target: https://pypi.org/project/rerunme/
+.. image:: https://img.shields.io/pypi/wheel/rerunme.svg
+    :alt: PyPI - Wheel
+    :target: https://pypi.org/project/rerunme/
+.. image:: https://img.shields.io/pypi/pyversions/rerunme.svg
+    :alt: PyPI - Python Version
+    :target: https://pypi.org/project/rerunme/
+.. image:: https://img.shields.io/pypi/l/rerunme.svg
+    :alt: PyPI - License
+    :target: https://pypi.org/project/rerunme/
 
 A library for rerunning functions in the case of raised exceptions and specific return values with configurable delays.
 
