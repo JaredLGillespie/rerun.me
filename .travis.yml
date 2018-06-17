@@ -17,7 +17,7 @@ after_success:
 jobs:
   include:
   - stage: PyPI Release
-    matrix: 3.6
+    python: 3.6
     deploy:
       provider: pypi
       user: JaredLGillespie
@@ -26,5 +26,3 @@ jobs:
         secure: tmyoAfzoDS5HSI6rvAmZovhO9mHDO6eOC42DWEZaA40tDFcqDhHWdwqgssWfHl9TMo4kUEAqtxu3yZ4qf5ttT+X7ofyX6MlhJv43zsUaufPDyig3slG6iMZT0Qh8V+w+gsR4tXAe6QTBaUcL3sbNY9Ym2lBFgNQIwvyrpm5F+LJwNwJJY+kCAPEwkRrwj3HsklttVA5PC5xGPLKPhN6GCmW6+9zqag87Cnh3vArKNtPOOFuVC3dlCsge2GX2/lFrzvZGmHJhl3/b4CM9CJZZ9eMxlKAGwQlm9jUHYZQdiG2BoD6HeY5NwrQxTqFj0GF7/IdGLtCB6L75IcdMq2Pi8aH83MQto0EIBBZ05EEiOVv4Qbk/+5NRvwJidkHSvJpOd3fgrOcYzaRhKn/w3JWicbBnAuUCBD0WKek9xHldd01yL7ImgFawsHT0Qw0ZIgvBKFQZ+6dVHrcGJN4FF+l98PgFLqn/p4beOKovu5VXxBTZFJ3WVfGxrmUjqTuBphibZ+z+5bDfylU+WZ4AqgOZraSJWmfTX9AWrvgTTF1lGk0d+DXVv+UaLTgMP1w5/BSyPYW488tJzIUUu5BqqIOV783KUim8E4nCOyVe2vPG8cCNw8mafNCvW4NLL4DfVR2rJi0ismxvOcX0e32WkuRlA3YecsfTPo5sB1HzIp2ow/o=
       on:
         tags: true
-notifications:
-  email: jaredlgillespie@hotmail.com
