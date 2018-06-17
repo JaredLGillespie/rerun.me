@@ -1,10 +1,10 @@
 Rerun Me
 ========
 
-.. image:: https://img.shields.io/travis/JaredLGillespie/rerun.me.svg
+.. image:: https://img.shields.io/travis/JaredLGillespie/rerunme.svg
     :alt: Travis
     :target: https://travis-ci.org/JaredLGillespie/rerun.me
-.. image:: https://img.shields.io/coveralls/github/JaredLGillespie/rerun.me.svg
+.. image:: https://img.shields.io/coveralls/github/JaredLGillespie/rerunme.svg
     :alt: Coveralls github
     :target: https://coveralls.io/github/JaredLGillespie/rerun.me
 .. image:: https://img.shields.io/pypi/v/rerun.me.svg
