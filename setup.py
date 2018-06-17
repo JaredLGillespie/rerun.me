@@ -7,11 +7,11 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='rerunme',
-    version='0.1.1',
+    name='rerun.me',
+    version='0.1.2',
     description='A library for rerunning erred functions with delays.',
     long_description=long_description,
-    url='https://github.com/jaredlgillespie/rerunme',
+    url='https://github.com/jaredlgillespie/rerun.me',
     author='Jared Gillespie',
     author_email='jaredlgillespie@hotmail.com',
     license='MIT',
@@ -29,7 +29,7 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Utilities'
     ],
-    keywords='rerun retry decorator',
+    keywords='rerun.me rerun retry decorator',
     packages=['rerunme'],
     test_suite='tests'
 )

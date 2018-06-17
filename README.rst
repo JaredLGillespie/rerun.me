@@ -1,24 +1,24 @@
 Rerun Me
 ========
 
-.. image:: https://img.shields.io/travis/JaredLGillespie/rerunme.svg
+.. image:: https://img.shields.io/travis/JaredLGillespie/rerun.me.svg
     :alt: Travis
-    :target: https://travis-ci.org/JaredLGillespie/rerunme
-.. image:: https://img.shields.io/coveralls/github/JaredLGillespie/rerunme.svg
+    :target: https://travis-ci.org/JaredLGillespie/rerun.me
+.. image:: https://img.shields.io/coveralls/github/JaredLGillespie/rerun.me.svg
     :alt: Coveralls github
-    :target: https://coveralls.io/github/JaredLGillespie/rerunme
-.. image:: https://img.shields.io/pypi/v/rerunme.svg
+    :target: https://coveralls.io/github/JaredLGillespie/rerun.me
+.. image:: https://img.shields.io/pypi/v/rerun.me.svg
     :alt: PyPI
-    :target: https://pypi.org/project/rerunme/
-.. image:: https://img.shields.io/pypi/wheel/rerunme.svg
+    :target: https://pypi.org/project/rerun.me/
+.. image:: https://img.shields.io/pypi/wheel/rerun.me.svg
     :alt: PyPI - Wheel
-    :target: https://pypi.org/project/rerunme/
-.. image:: https://img.shields.io/pypi/pyversions/rerunme.svg
+    :target: https://pypi.org/project/rerun.me/
+.. image:: https://img.shields.io/pypi/pyversions/rerun.me.svg
     :alt: PyPI - Python Version
-    :target: https://pypi.org/project/rerunme/
-.. image:: https://img.shields.io/pypi/l/rerunme.svg
+    :target: https://pypi.org/project/rerun.me/
+.. image:: https://img.shields.io/pypi/l/rerun.me.svg
     :alt: PyPI - License
-    :target: https://pypi.org/project/rerunme/
+    :target: https://pypi.org/project/rerun.me/
 
 A library for rerunning functions in the case of raised exceptions and specific return values with configurable delays.
 
@@ -39,7 +39,7 @@ The latest version of rerunme is available via ``pip``:
 
 .. code-block:: python
 
-    pip install rerunme
+    pip install rerun.me
 
 Alternatively, you can download and install from source:
 
@@ -274,17 +274,17 @@ Contribution
 Contributions or suggestions are welcome! Feel free to `open an issue`_ if a bug is found or an enhancement is desired,
 or even a `pull request`_.
 
-.. _open an issue: https://github.com/jaredlgillespie/rerunme/issues
-.. _pull request: https://github.com/jaredlgillespie/rerunme/compare
+.. _open an issue: https://github.com/jaredlgillespie/rerun.me/issues
+.. _pull request: https://github.com/jaredlgillespie/rerun.me/compare
 
 Changelog
 ---------
 All changes and versioning information can be found in the `CHANGELOG`_.
 
-.. _CHANGELOG: https://github.com/JaredLGillespie/rerunme/blob/master/CHANGELOG.rst
+.. _CHANGELOG: https://github.com/JaredLGillespie/rerun.me/blob/master/CHANGELOG.rst
 
 License
 -------
 Copyright (c) 2018 Jared Gillespie. See `LICENSE`_ for details.
 
-.. _LICENSE: https://github.com/JaredLGillespie/rerunme/blob/master/LICENSE.txt
+.. _LICENSE: https://github.com/JaredLGillespie/rerun.me/blob/master/LICENSE.txt

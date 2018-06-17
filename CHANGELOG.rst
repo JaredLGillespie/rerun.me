@@ -24,4 +24,3 @@ Added
 
 .. _Unreleased: https://github.com/JaredLGillespie/rerunme/compare/v0.1.1...HEAD
 .. _0.1.1: https://github.com/JaredLGillespie/rerunme/releases/tag/v0.1.1
-.. _0.1.0: https://github.com/JaredLGillespie/rerunme/releases/tag/v0.1.0
