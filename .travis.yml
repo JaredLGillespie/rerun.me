@@ -12,7 +12,7 @@ install:
 script:
   - check-manifest --ignore .coveragerc,tests*
   - python setup.py check -m -s
-  - flake8 --exclude=.git,__pycache__,.tox,*.egg,build,data,tests,build,dist --select=E,W,F  --max-line-length=120 .
+  - flake8 -- exclude=.git,__pycache__,.tox,*.egg,build,data,tests,build,dist --select=E,W,F  --max-line-length=120 .
   - coverage run setup.py test
 after_success:
   - coveralls
