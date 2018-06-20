@@ -10,6 +10,15 @@ The format is based on `Keep a Changelog`_ and this project adheres to `Semantic
 `Unreleased`_
 -------------
 
+`1.0.0`_ - 2018-06-19
+Changed
+^^^^^^^
+- ``attachme`` decorator is now ``attach``
+
+Fixed
+^^^^^
+- ``on_retry`` argument call matches behavior of other callbacks
+
 `0.1.2`_ - 2018-06-17
 Fixed
 ^^^^^
@@ -27,6 +36,7 @@ Added
 ^^^^^
 - Initial version
 
-.. _Unreleased: https://github.com/JaredLGillespie/rerunme/compare/v0.1.2...HEAD
-.. _0.1.2: https://github.com/JaredLGillespie/rerunme/releases/tag/v0.1.2
-.. _0.1.1: https://github.com/JaredLGillespie/rerunme/releases/tag/v0.1.1
+.. _Unreleased: https://github.com/JaredLGillespie/rerun.me/compare/v1.0.0...HEAD
+.. _1.0.0: https://github.com/JaredLGillespie/rerun.me/releases/tag/v1.0.0
+.. _0.1.2: https://github.com/JaredLGillespie/rerun.me/releases/tag/v0.1.2
+.. _0.1.1: https://github.com/JaredLGillespie/rerun.me/releases/tag/v0.1.1
