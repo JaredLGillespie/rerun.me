@@ -1,4 +1,4 @@
-Rerun.Me
+Rerun Me
 ========
 
 .. image:: https://img.shields.io/travis/JaredLGillespie/rerun.me.svg
