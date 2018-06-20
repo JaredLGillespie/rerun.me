@@ -23,7 +23,7 @@
 """Function decorator for retrying function for a given return value or raised exception with delays.
 
 This exports:
-  - rerunme is the function retry decorator
+  - rerun is the function retry decorator
   - MaxRetryError is an exception raised for exceeding the maximum retries
   - constant is a delay generator for constant delays
   - linear is a delay generator for linearly increasing delays
@@ -48,66 +48,66 @@ class _FunctionSignature:
     KWARGS = 1 << 2
 
 
-class rerunme:
+class rerun:
     """Retry decorator.
 
-        Wraps a function and retries it depending on the return value or an exception that is raised. Different
-        algorithms can be used to implement varying delays after each retry. See `constant`, `linear`, `exponential`,
-        and `fibonacci`.
+    Wraps a function and retries it depending on the return value or an exception that is raised. Different
+    algorithms can be used to implement varying delays after each retry. See `constant`, `linear`, `exponential`,
+    and `fibonacci`.
 
-        Each of the functions that can be passed in (`on_delay`, `on_error`, `on_return`, and `on_retry`) can
-        either accept 0 parameters, the number of parameters as described below, or the wrapped function's args and
-        kwargs in addition to the parameters as described below.
+    Each of the functions that can be passed in (`on_delay`, `on_error`, `on_return`, and `on_retry`) can
+    either accept 0 parameters, the number of parameters as described below, or the wrapped function's args and
+    kwargs in addition to the parameters as described below.
 
-        For usage examples, see https://github.com/jaredlgillespie/rerunme.
+    For usage examples, see https://github.com/JaredLGillespie/rerun.me.
 
-        :param on_delay:
-            If iterable or callable function, should generate the time delays between successive retries. Each iteration
-            should yield an integer value representing the time delay in milliseconds. The iterable should ideally have
-            an internal limit in which to stop, see :func:`exponential` for an example.
+    :param on_delay:
+        If iterable or callable function, should generate the time delays between successive retries. Each iteration
+        should yield an integer value representing the time delay in milliseconds. The iterable should ideally have
+        an internal limit in which to stop, see :func:`exponential` for an example.
 
-            If an integer or float, should represent a single delay in milliseconds.
+        If an integer or float, should represent a single delay in milliseconds.
 
-            If None type, no retries are performed.
-        :param on_error:
-            If a callable, should accept a single value (the error) which is raised and return a boolean value. True
-            denotes that the error should be handled and the function retried, while False allows it to bubble up
-            without continuing to retry the function.
+        If None type, no retries are performed.
+    :param on_error:
+        If a callable, should accept a single value (the error) which is raised and return a boolean value. True
+        denotes that the error should be handled and the function retried, while False allows it to bubble up
+        without continuing to retry the function.
 
-            If an iterable, should be a sequence of Exception types that can be handled. Exceptions that are not one of
-            these types cause the error to bubble up without continuing to retry the function.
+        If an iterable, should be a sequence of Exception types that can be handled. Exceptions that are not one of
+        these types cause the error to bubble up without continuing to retry the function.
 
-            If an Exception type, an exception that occurs of this type is handled. All others are bubbled up without
-            continuing to retry the function.
+        If an Exception type, an exception that occurs of this type is handled. All others are bubbled up without
+        continuing to retry the function.
 
-            If None type, no errors are handled.
-        :param on_return:
-            If a callable, should accept a single value (the return value) which is return and return a boolean value.
-            True denotes that the return value should result in the function being retried, while False allows the
-            return value to be returned from the function.
+        If None type, no errors are handled.
+    :param on_return:
+        If a callable, should accept a single value (the return value) which is return and return a boolean value.
+        True denotes that the return value should result in the function being retried, while False allows the
+        return value to be returned from the function.
 
-            If an iterable, should be a sequence of values that can be handled (i.e. the function is retried). Values
-            that are not equal to one of these are returned from the function.
+        If an iterable, should be a sequence of values that can be handled (i.e. the function is retried). Values
+        that are not equal to one of these are returned from the function.
 
-            If a single value, a return values that occurs that is equal is handled. All others are returned from the
-            function.
+        If a single value, a return values that occurs that is equal is handled. All others are returned from the
+        function.
 
-            If None type, no return values are handled. Note that if the None type is actually desired to be handled, it
-            should be given as a sequence like so: `on_return=[None]`.
-        :param on_retry:
-            A callback that is called each time the function is retried. Two arguments are passed, the current delay and
-            the number of retries thus far.
-        :param retry_after_delay:
-            A boolean value indicating whether to call the `on_retry` callback before or after the delay is issued.
-            True indicates after, while False indicates before.
-        :type on_delay: iterable or callable or int or float or None
-        :type on_error: iterable or callable or Exception or None
-        :type on_return: iterable or callable or object or None
-        :type on_retry: callable or None
-        :type retry_after_delay: bool
-        :raises MaxRetryException:
-            If number of retries has been exceeded, determined by `on_delay` generator running.
-        """
+        If None type, no return values are handled. Note that if the None type is actually desired to be handled, it
+        should be given as a sequence like so: `on_return=[None]`.
+    :param on_retry:
+        A callback that is called each time the function is retried. Two arguments are passed, the current delay and
+        the number of retries thus far.
+    :param retry_after_delay:
+        A boolean value indicating whether to call the `on_retry` callback before or after the delay is issued.
+        True indicates after, while False indicates before.
+    :type on_delay: iterable or callable or int or float or None
+    :type on_error: iterable or callable or Exception or None
+    :type on_return: iterable or callable or object or None
+    :type on_retry: callable or None
+    :type retry_after_delay: bool
+    :raises MaxRetryException:
+        If number of retries has been exceeded, determined by `on_delay` generator running.
+    """
     def __init__(self, on_delay=None, on_error=None, on_return=None, on_retry=None, retry_after_delay=False):
         self._on_delay = on_delay
         self._on_error = on_error
@@ -156,12 +156,12 @@ class rerunme:
             retries += 1
 
             if self._should_handle_retry(False):
-                self._on_retry(delay, retries)
+                self._call_with_sig(self._on_retry, self._sig_retry, (delay, retries), *args, **kwargs)
 
             sleep(delay / 1000)
 
             if self._should_handle_retry(True):
-                self._on_retry(delay, retries)
+                self._call_with_sig(self._on_retry, self._sig_retry, (delay, retries), *args, **kwargs)
 
             try:
                 ret = func(*args, **kwargs)

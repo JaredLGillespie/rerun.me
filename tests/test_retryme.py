@@ -24,7 +24,7 @@ import unittest
 from unittest.mock import Mock, patch
 from inspect import isclass
 from functools import partial, partialmethod
-from rerunme import MaxRetryError, rerunme, constant, linear, exponential, fibonacci
+from rerunme import MaxRetryError, rerun, constant, linear, exponential, fibonacci
 
 
 # Test helpers
@@ -54,25 +54,25 @@ class Dummy:
     partial_func_iter = partialmethod(func_iter)
 
 
-class TestRerunMe(unittest.TestCase):
+class TestRerun(unittest.TestCase):
 
     def test_no_handlers_success(self):
         iterable = iter([1])
-        out = rerunme()(func_iter)(iterable)
+        out = rerun()(func_iter)(iterable)
         self.assertEqual(1, out)
 
     def test_no_handlers_error(self):
         iterable = iter([ValueError])
 
         with self.assertRaises(ValueError):
-            rerunme()(func_iter)(iterable)
+            rerun()(func_iter)(iterable)
 
     def test_on_delay_int(self):
         iterable = iter([0, 1])
         on_delay = 0
         on_return = 0
 
-        out = rerunme(on_delay=on_delay, on_return=on_return)(func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_return=on_return)(func_iter)(iterable)
         self.assertEqual(1, out)
 
     def test_on_delay_iterable(self):
@@ -80,7 +80,7 @@ class TestRerunMe(unittest.TestCase):
         on_delay = [0]
         on_return = 0
 
-        out = rerunme(on_delay=on_delay, on_return=on_return)(func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_return=on_return)(func_iter)(iterable)
         self.assertEqual(1, out)
 
     def test_on_delay_function(self):
@@ -88,14 +88,14 @@ class TestRerunMe(unittest.TestCase):
         on_delay = lambda: [0]
         on_return = 0
 
-        out = rerunme(on_delay=on_delay, on_return=on_return)(func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_return=on_return)(func_iter)(iterable)
         self.assertEqual(1, out)
 
     def test_on_error_is_function_handled(self):
         iterable = iter([ValueError, 1])
         on_error = lambda x: isinstance(x, ValueError)
         on_delay = [0]
-        out = rerunme(on_delay=on_delay, on_error=on_error)(func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_error=on_error)(func_iter)(iterable)
         self.assertEqual(1, out)
 
     def test_on_error_is_function_unhandled(self):
@@ -103,13 +103,13 @@ class TestRerunMe(unittest.TestCase):
         on_error = lambda x: not isinstance(x, ValueError)
 
         with self.assertRaises(ValueError):
-            rerunme(on_error=on_error)(func_iter)(iterable)
+            rerun(on_error=on_error)(func_iter)(iterable)
 
     def test_on_error_is_iterable_handled(self):
         iterable = iter([ValueError, 1])
         on_error = [ValueError, TypeError]
         on_delay = [0]
-        out = rerunme(on_delay=on_delay, on_error=on_error)(func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_error=on_error)(func_iter)(iterable)
         self.assertEqual(1, out)
 
     def test_on_error_is_iterable_unhandled(self):
@@ -117,13 +117,13 @@ class TestRerunMe(unittest.TestCase):
         on_error = [KeyError, TypeError]
 
         with self.assertRaises(ValueError):
-            rerunme(on_error=on_error)(func_iter)(iterable)
+            rerun(on_error=on_error)(func_iter)(iterable)
 
     def test_on_error_is_error_handled(self):
         iterable = iter([ValueError, ValueError, 1])
         on_error = ValueError
         on_delay = [0, 0]
-        out = rerunme(on_delay=on_delay, on_error=on_error)(func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_error=on_error)(func_iter)(iterable)
         self.assertEqual(1, out)
 
     def test_on_error_is_error_unhandled(self):
@@ -132,45 +132,45 @@ class TestRerunMe(unittest.TestCase):
         on_delay = [0]
 
         with self.assertRaises(ValueError):
-            rerunme(on_delay=on_delay, on_error=on_error)(func_iter)(iterable)
+            rerun(on_delay=on_delay, on_error=on_error)(func_iter)(iterable)
 
     def test_on_return_is_function_handled(self):
         iterable = iter([1, 2, 3, 4])
         on_return = lambda x: x in (1, 2, 3)
         on_delay = [0, 0, 0]
-        out = rerunme(on_delay=on_delay, on_return=on_return)(func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_return=on_return)(func_iter)(iterable)
         self.assertEqual(4, out)
 
     def test_on_return_is_function_unhandled(self):
         iterable = iter([1])
         on_return = lambda x: x == 4
-        out = rerunme(on_return=on_return)(func_iter)(iterable)
+        out = rerun(on_return=on_return)(func_iter)(iterable)
         self.assertEqual(out, 1)
 
     def test_on_return_is_iterable_handled(self):
         iterable = iter([1, 2, 3, 4])
         on_return = [1, 2, 3]
         on_delay = [0, 0, 0]
-        out = rerunme(on_delay=on_delay, on_return=on_return)(func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_return=on_return)(func_iter)(iterable)
         self.assertEqual(4, out)
 
     def test_on_return_is_iterable_unhandled(self):
         iterable = iter([1])
         on_return = [4]
-        out = rerunme(on_return=on_return)(func_iter)(iterable)
+        out = rerun(on_return=on_return)(func_iter)(iterable)
         self.assertEqual(out, 1)
 
     def test_on_return_is_value_handled(self):
         iterable = iter([1, 1, 0])
         on_return = 1
         on_delay = [0, 0]
-        out = rerunme(on_delay=on_delay, on_return=on_return)(func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_return=on_return)(func_iter)(iterable)
         self.assertEqual(0, out)
 
     def test_on_return_is_value_unhandled(self):
         iterable = iter([1])
         on_return = 4
-        out = rerunme(on_return=on_return)(func_iter)(iterable)
+        out = rerun(on_return=on_return)(func_iter)(iterable)
         self.assertEqual(out, 1)
 
     def test_on_retry_after_delay(self):
@@ -180,9 +180,9 @@ class TestRerunMe(unittest.TestCase):
         on_delay = [0]
 
         with patch('rerunme.sleep') as sleep_mock:
-            rerunme(on_delay=on_delay, on_return=on_return, on_retry=on_retry, retry_after_delay=True)(func_iter)(iterable)
+            rerun(on_delay=on_delay, on_return=on_return, on_retry=on_retry, retry_after_delay=True)(func_iter)(iterable)
             sleep_mock.assert_called_once_with(0)
-            on_retry.assert_called_once_with(0, 1)
+            on_retry.assert_called_once_with(0, 1, iterable)
 
     def test_on_retry_before_delay(self):
         iterable = iter([1, 2])
@@ -192,7 +192,7 @@ class TestRerunMe(unittest.TestCase):
 
         with patch('rerunme.sleep') as sleep_mock:
             with self.assertRaises(Exception):
-                rerunme(on_delay=on_delay, on_return=on_return, on_retry=on_retry, retry_after_delay=False)(func_iter)(iterable)
+                rerun(on_delay=on_delay, on_return=on_return, on_retry=on_retry, retry_after_delay=False)(func_iter)(iterable)
             sleep_mock.assert_not_called()
 
     def test_partial_success(self):
@@ -200,7 +200,7 @@ class TestRerunMe(unittest.TestCase):
         on_return = 1
         on_error = KeyError
         on_delay = [0]
-        out = rerunme(on_delay=on_delay, on_error=on_error, on_return=on_return)(partial_func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_error=on_error, on_return=on_return)(partial_func_iter)(iterable)
         self.assertEqual(0, out)
 
     def test_partial_failure(self):
@@ -208,14 +208,14 @@ class TestRerunMe(unittest.TestCase):
         on_return = 1
 
         with self.assertRaises(MaxRetryError):
-            rerunme(on_return=on_return)(partial_func_iter)(iterable)
+            rerun(on_return=on_return)(partial_func_iter)(iterable)
 
     def test_method(self):
         iterable = iter([1, 0])
         on_return = 1
         on_error = KeyError
         on_delay = [0]
-        out = rerunme(on_delay=on_delay, on_error=on_error, on_return=on_return)(Dummy().func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_error=on_error, on_return=on_return)(Dummy().func_iter)(iterable)
         self.assertEqual(0, out)
 
     def test_class_method(self):
@@ -223,7 +223,7 @@ class TestRerunMe(unittest.TestCase):
         on_return = 1
         on_error = KeyError
         on_delay = [0]
-        out = rerunme(on_delay=on_delay, on_error=on_error, on_return=on_return)(Dummy.class_func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_error=on_error, on_return=on_return)(Dummy.class_func_iter)(iterable)
         self.assertEqual(0, out)
 
     def test_static_method(self):
@@ -231,7 +231,7 @@ class TestRerunMe(unittest.TestCase):
         on_return = 1
         on_error = KeyError
         on_delay = [0]
-        out = rerunme(on_delay=on_delay, on_error=on_error, on_return=on_return)(Dummy.static_func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_error=on_error, on_return=on_return)(Dummy.static_func_iter)(iterable)
         self.assertEqual(0, out)
 
     def test_partial_method(self):
@@ -239,7 +239,7 @@ class TestRerunMe(unittest.TestCase):
         on_return = 1
         on_error = KeyError
         on_delay = [0]
-        out = rerunme(on_delay=on_delay, on_error=on_error, on_return=on_return)(Dummy().partial_func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_error=on_error, on_return=on_return)(Dummy().partial_func_iter)(iterable)
         self.assertEqual(0, out)
 
     def test_max_retry_error_with_delay(self):
@@ -248,21 +248,21 @@ class TestRerunMe(unittest.TestCase):
         on_delay = [0]
 
         with self.assertRaises(MaxRetryError):
-            rerunme(on_delay=on_delay, on_return=on_return)(func_iter)(iterable)
+            rerun(on_delay=on_delay, on_return=on_return)(func_iter)(iterable)
 
     def test_max_retry_error_without_delay(self):
         iterable = iter([0])
         on_return = 0
 
         with self.assertRaises(MaxRetryError):
-            rerunme(on_return=on_return)(func_iter)(iterable)
+            rerun(on_return=on_return)(func_iter)(iterable)
 
     def test_run(self):
         on_return = [1, 2]
         on_error = KeyError
         on_delay = [0]
 
-        decorator = rerunme(on_delay=on_delay, on_error=on_error, on_return=on_return)
+        decorator = rerun(on_delay=on_delay, on_error=on_error, on_return=on_return)
         out = decorator.run(func_iter, iter([1, 0]))
         self.assertEqual(0, out)
 
@@ -277,7 +277,7 @@ class TestRerunMe(unittest.TestCase):
             self.assertEqual(len(args), 1)
             return isinstance(x, ValueError)
 
-        out = rerunme(on_delay=on_delay, on_error=on_error)(func_iter)(iterable)
+        out = rerun(on_delay=on_delay, on_error=on_error)(func_iter)(iterable)
         self.assertEqual(None, out)
 
     def test_handler_with_args_and_kwargs(self):
@@ -289,7 +289,7 @@ class TestRerunMe(unittest.TestCase):
             self.assertEqual(len(kwargs), 1)
             return x == 1
 
-        out = rerunme(on_delay=on_delay, on_return=on_return)(func_iter)(iterable, nothing=True)
+        out = rerun(on_delay=on_delay, on_return=on_return)(func_iter)(iterable, nothing=True)
         self.assertEqual(0, out)
 
     def test_function_kwarg_only_params(self):
@@ -298,7 +298,7 @@ class TestRerunMe(unittest.TestCase):
         def on_delay(*args, x=1, **kwargs):
             return x
 
-        out = rerunme(on_delay=on_delay)(func_iter)(iterable)
+        out = rerun(on_delay=on_delay)(func_iter)(iterable)
         self.assertEqual(1, out)
 
 

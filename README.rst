@@ -212,6 +212,7 @@ it after the delay, the ``retry_after_delay`` parameter can be specified.
 
 Advanced Usage
 --------------
+
 Instead of using as a decorator, ``rerunme`` can be used as an instead for wrapping an arbitrary number of function
 calls. This can be achieved via the ``run`` method.
 
@@ -271,6 +272,7 @@ function variations are shown below.
 
 Contribution
 ------------
+
 Contributions or suggestions are welcome! Feel free to `open an issue`_ if a bug is found or an enhancement is desired,
 or even a `pull request`_.
 
@@ -279,12 +281,14 @@ or even a `pull request`_.
 
 Changelog
 ---------
+
 All changes and versioning information can be found in the `CHANGELOG`_.
 
 .. _CHANGELOG: https://github.com/JaredLGillespie/rerun.me/blob/master/CHANGELOG.rst
 
 License
 -------
+
 Copyright (c) 2018 Jared Gillespie. See `LICENSE`_ for details.
 
 .. _LICENSE: https://github.com/JaredLGillespie/rerun.me/blob/master/LICENSE.txt
