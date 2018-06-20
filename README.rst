@@ -1,4 +1,4 @@
-Rerun Me
+Rerun.Me
 ========
 
 .. image:: https://img.shields.io/travis/JaredLGillespie/rerun.me.svg
@@ -24,7 +24,7 @@ A library for rerunning functions in the case of raised exceptions and specific 
 
 .. code-block:: python
 
-    @rerunme(on_delay=fibonacci(1000, 3),
+    @rerun(on_delay=fibonacci(1000, 3),
              on_error=[ConnectionTimeoutError, DeadlockVictimError],
              on_return=[None]
              on_retry=lambda d, r: log.info('Retrying connection again (#%s) in %s seconds' % (r, d)))
@@ -35,7 +35,7 @@ A library for rerunning functions in the case of raised exceptions and specific 
 Installation
 ------------
 
-The latest version of rerunme is available via ``pip``:
+The latest version of rerun.me is available via ``pip``:
 
 .. code-block:: python
 
@@ -50,11 +50,11 @@ Alternatively, you can download and install from source:
 Getting Started
 ---------------
 
-The ``rerunme`` function contains the following signature:
+The ``rerun`` function contains the following signature:
 
 .. code-block:: python
 
-    def rerunme(on_delay=None, on_error=None, on_return=None, on_retry=None, retry_after_delay=False):
+    def rerun(on_delay=None, on_error=None, on_return=None, on_retry=None, retry_after_delay=False):
         ...
 
 It serves as both a function decorator, and a runnable wrapper and is configurable through it's dynamic parameters. Most
@@ -74,7 +74,7 @@ for the delays are given in milliseconds.
 
 .. code-block:: python
 
-    @rerunme(on_delay=[1000, 2000], on_error=KeyError)
+    @rerun(on_delay=[1000, 2000], on_error=KeyError)
     def func():
         ...
 
@@ -86,7 +86,7 @@ Generators and iterable items can be used to generate delays too.
         # yield delays
         ...
 
-    @rerunme(on_delay=fancy_generator)
+    @rerun(on_delay=fancy_generator)
     def func():
         ...
 
@@ -94,7 +94,7 @@ If a single delay is desired, an ``integer`` or ``float`` value can be given, li
 
 .. code-block:: python
 
-    @rerunme(on_delay=1000, on_error=KeyError)
+    @rerun(on_delay=1000, on_error=KeyError)
     def func():
         ...
 
@@ -111,7 +111,7 @@ generator, a ``MaxRetryException`` is thrown.
 
 .. code-block:: python
 
-    @rerunme(on_delay=None, on_error=KeyError)  # No retries
+    @rerun(on_delay=None, on_error=KeyError)  # No retries
     def func():
         raise KeyError
 
@@ -126,7 +126,7 @@ scope without retrying the function.
 
 .. code-block:: python
 
-    @rerunme(on_delay=[1000], on_error=TypeError)
+    @rerun(on_delay=[1000], on_error=TypeError)
     def func():
         raise KeyError
 
@@ -136,7 +136,7 @@ Multiple errors can be given as a sequence to handle more than one.
 
 .. code-block:: python
 
-    @rerunme(on_delay=[1000], on_error=[ValueError, TimeoutError])
+    @rerun(on_delay=[1000], on_error=[ValueError, TimeoutError])
     def func():
         ...
 
@@ -145,7 +145,7 @@ value, the error raised, and return a boolean indicating ``True`` to handle, or 
 
 .. code-block:: python
 
-    @rerunme(on_delay=[1000], on_error=lambda x: not isinstance(ValueError, TimeoutError))
+    @rerun(on_delay=[1000], on_error=lambda x: not isinstance(ValueError, TimeoutError))
     def func():
         ...
 
@@ -159,7 +159,7 @@ a successful state (like ``0`` or an ``object``).
 
 .. code-block:: python
 
-    @rerunme(on_delay=[1000], on_return=-1)
+    @rerun(on_delay=[1000], on_return=-1)
     def func()
         return -1
 
@@ -172,17 +172,17 @@ of sequences, like so.
 .. code-block:: python
 
     # WRONG: checks if [-1, -1] is in the sequence [-1, -1]
-    @rerunme(on_delay=[1000], on_return=[-1, -1])
+    @rerun(on_delay=[1000], on_return=[-1, -1])
     def func():
         return [-1, -1]  # Not handled
 
     # CORRECT: checks if [-1, -1] is the return value
-    @rerunme(on_delay=[1000], on_return=lambda x: x == [-1, -1])
+    @rerun(on_delay=[1000], on_return=lambda x: x == [-1, -1])
     def func():
         return [-1, -1] # Is handled
 
     # CORRECT: checks if [-1, -1] is in the sequence [[-1, -1]]
-    @rerunme(on_delay=[1000], on_return=[[-1, -1]])
+    @rerun(on_delay=[1000], on_return=[[-1, -1]])
     def func():
         return [-1, -1] # Is handled
 
@@ -194,7 +194,7 @@ of retries thus far. Logging is a common use-case for this, as shown below.
     def log(delay, retry):
         logging.info('Retrying function again (#%s) in %s seconds' % (delay, retry))
 
-    @rerunme(on_delay=[1000, 2000, 3000], on_return=-1, on_retry=log)
+    @rerun(on_delay=[1000, 2000, 3000], on_return=-1, on_retry=log)
     def func():
         ...
 
@@ -203,7 +203,7 @@ it after the delay, the ``retry_after_delay`` parameter can be specified.
 
 .. code-block:: python
 
-    @rerunme(on_delay=[1000],
+    @rerun(on_delay=[1000],
              on_return=-1,
              on_retry=lambda d, r: print('Waited %s seconds for retry #%s' % (d, r)))
     def func():
@@ -213,7 +213,7 @@ it after the delay, the ``retry_after_delay`` parameter can be specified.
 Advanced Usage
 --------------
 
-Instead of using as a decorator, ``rerunme`` can be used as an instead for wrapping an arbitrary number of function
+Instead of using as a decorator, ``rerun`` can be used as an instead for wrapping an arbitrary number of function
 calls. This can be achieved via the ``run`` method.
 
 .. code-block:: python
@@ -224,11 +224,11 @@ calls. This can be achieved via the ``run`` method.
     def func_b():
         ...
 
-    rerunner = rerunme(on_delay=..., on_error=..., on_return=..., on_retry=...)
+    rerunner = rerun(on_delay=..., on_error=..., on_return=..., on_retry=...)
 
-    # Using same configured rerunme instance
-    rerunme.run(func_a, args, kwargs)
-    rerunme.run(func_b, args, kwargs)
+    # Using same configured rerun instance
+    rerun.run(func_a, args, kwargs)
+    rerun.run(func_b, args, kwargs)
 
 Besides using the provided ``run`` method, like any decorator functions can be locally wrapped, passed around, and
 executed.
@@ -238,14 +238,14 @@ executed.
     def func():
         ...
 
-    rerunner = rerunme(on_delay=..., on_error=..., on_return=..., on_retry=...)
+    rerunner = rerun(on_delay=..., on_error=..., on_return=..., on_retry=...)
     rerun_func = rerunner(func)
     rerun_func(args, kwargs)
 
     # Or as a one-off like so
-    rerunme(...)(func)(args, kwargs)
+    rerun(...)(func)(args, kwargs)
 
-Each of the function parameters that can be passed into ``rerunme``, can actually be configured to accepts different
+Each of the function parameters that can be passed into ``rerun``, can actually be configured to accepts different
 number of parameters depending on the function. They can each either accept 0 parameters, the parameters that would be
 typically passed in, or the wrapped function's args and kwargs in addition to the parameters typically given.
 
