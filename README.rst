@@ -54,7 +54,7 @@ The ``rerun`` function contains the following signature:
 
 .. code-block:: python
 
-    @rerun(on_delay=None, on_error=None, on_return=None, on_retry=None, retry_after_delay=False):
+    @rerun(on_delay=None, on_error=None, on_return=None, on_retry=None, retry_after_delay=False)
 	def func(...)
         ...
 
