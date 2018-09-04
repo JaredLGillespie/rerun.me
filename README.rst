@@ -37,13 +37,13 @@ Installation
 
 The latest version of rerun.me is available via ``pip``:
 
-.. code-block:: python
+.. code-block:: bash
 
     pip install rerun.me
 
 Alternatively, you can download and install from source:
 
-.. code-block:: python
+.. code-block:: bash
 
     python setup.py install
 
